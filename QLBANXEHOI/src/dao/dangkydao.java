@@ -10,7 +10,7 @@ public class dangkydao {
 			// B1: káº¿t ná»‘i csdl
 			cosodao cs = new cosodao();
 			cs.KetNoi();
-			String sql ="insert into  KhachHang(HoTen, DiaChi, SoDT, Email, TenDN, Pass) values (?,?,?,?,?,?)";
+			String sql ="insert into  KhachHang(HoTen, DiaChi, SoDT, Email, TenDN, Pass, TaiKhoan) values (?,?,?,?,?,?,0)";
 			//String sql = "select count(*) from KhachHang where tendn = ? and pass = ?";
 			PreparedStatement cmd = cs.cn.prepareStatement(sql);
 			cmd.setString(1, hoten);

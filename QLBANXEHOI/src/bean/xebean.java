@@ -9,12 +9,13 @@ public class xebean {
 	private String ngaynhap;
 	private String mahangxe;
 	private String tenhangxe;
+	private String anhhangxe;
 	public xebean() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public xebean(String maxe, String tenxe, long soluong, long gia, String anh, String ngaynhap, String mahangxe,
-			String tenhangxe) {
+			String tenhangxe, String anhhangxe) {
 		super();
 		this.maxe = maxe;
 		this.tenxe = tenxe;
@@ -24,6 +25,7 @@ public class xebean {
 		this.ngaynhap = ngaynhap;
 		this.mahangxe = mahangxe;
 		this.tenhangxe = tenhangxe;
+		this.anhhangxe = anhhangxe;
 	}
 	public String getMaxe() {
 		return maxe;
@@ -72,6 +74,12 @@ public class xebean {
 	}
 	public void setTenhangxe(String tenhangxe) {
 		this.tenhangxe = tenhangxe;
+	}
+	public String getAnhhangxe() {
+		return anhhangxe;
+	}
+	public void setAnhhangxe(String anhhangxe) {
+		this.anhhangxe = anhhangxe;
 	}
 	
 	

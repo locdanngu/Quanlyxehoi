@@ -28,4 +28,8 @@ public class hangbo {
 		hdao.deletehangxe(mhx);
 	}
 	
+	
+	public int counthx() {
+		return hdao.counthx();
+	}
 }

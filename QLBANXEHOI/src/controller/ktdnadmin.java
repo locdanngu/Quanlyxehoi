@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import dao.taikhoanadmindao;
-import dao.taikhoandao;
 
 /**
  * Servlet implementation class ktdnadmin
@@ -45,7 +44,7 @@ public class ktdnadmin extends HttpServlet {
 				if (session.getAttribute("DangNhapAD") != null)
 					session.setAttribute("DangNhapAD", "");
 				session.setAttribute("DangNhapAD", usernamead);
-				RequestDispatcher rd = request.getRequestDispatcher("trangchuadmincontroller");
+				RequestDispatcher rd = request.getRequestDispatcher("trangchuadmin");
 				rd.forward(request, response);
 			}
 			/*
@@ -54,7 +53,7 @@ public class ktdnadmin extends HttpServlet {
 			 */
 			else {
 				dnsad="bb";
-				RequestDispatcher rd = request.getRequestDispatcher("dangnhapsaicontroller");
+				RequestDispatcher rd = request.getRequestDispatcher("loginAD");
 				rd.forward(request, response);
 			}
 		} /*
@@ -64,6 +63,7 @@ public class ktdnadmin extends HttpServlet {
 			 */
 	
 	}
+
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */

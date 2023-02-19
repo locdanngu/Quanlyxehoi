@@ -89,4 +89,24 @@ public class thanhtoandao {
 		}
 		return 0;
 	}
+	
+	public int dongythanhtoan2(long sotien, String tendn) {
+		try {
+			cosodao cs = new cosodao();
+			cs.KetNoi();
+			String sql = "update KHACHHANG set TaiKhoan = TaiKhoan - ? from KHACHHANG where TenDN = ?";
+			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			cmd.setLong(1, sotien);
+			cmd.setString(2, tendn);
+			/* cmd.setLong(3, mahoadon); */
+			int rs = cmd.executeUpdate();
+			cs.cn.close();
+			return rs;
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
+	
 }

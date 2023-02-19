@@ -31,4 +31,23 @@ public class taikhoanadmindao {
 	}
 	
 	
+	public int getdoanhthu() { //Đếm tất cả xe hiện tại : 102 xe)
+		try {
+			cosodao cs = new cosodao();
+			cs.KetNoi();
+			String sql = "select Sum(SoLuongMua*Gia) from CHITIETHOADON join XE on CHITIETHOADON.MaXe = XE.MaXe where DaMua = N'Xác nhận giao' ";
+			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			ResultSet rs = cmd.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+			rs.close();
+			cs.cn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
+	
 }

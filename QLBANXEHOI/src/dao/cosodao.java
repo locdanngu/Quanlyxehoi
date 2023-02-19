@@ -24,5 +24,10 @@ public class cosodao {
 
 		cosodao cs = new cosodao();
 		cs.KetNoi();
+		/*
+		 * lichsudao lsdao = new lichsudao();
+		 * 
+		 * System.out.print(lsdao.getlichsu("hieu"));
+		 */
 	}
 }

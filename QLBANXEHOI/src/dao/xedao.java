@@ -16,7 +16,7 @@ public class xedao {
 			try {
 				cosodao cs=new cosodao();
 				cs.KetNoi();
-				String sql="select MaXe, TenXe, SoLuong, Gia, Anh,NgayNhap,XE.MaHangXe, TenHangXe From HANGXE join XE on HANGXE.MaHangXe=Xe.MaHangXe";
+				String sql="select MaXe, TenXe, SoLuong, Gia, Anh,NgayNhap,XE.MaHangXe, TenHangXe, AnhHangXe From HANGXE join XE on HANGXE.MaHangXe=Xe.MaHangXe";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				ResultSet rs = cmd.executeQuery();
 				while(rs.next()) {
@@ -28,7 +28,8 @@ public class xedao {
 					String ngaynhap = rs.getString("NgayNhap");
 					String mahangxe = rs.getString("MaHangXe");
 					String tenhangxe = rs.getString("TenHangXe");
-					dsxe.add(new xebean(maxe, tenxe, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe));
+					String anhhangxe = rs.getString("AnhHangXe");
+					dsxe.add(new xebean(maxe, tenxe, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe, anhhangxe));
 			   }
 			   rs.close();
 			   cs.cn.close();   
@@ -40,22 +41,64 @@ public class xedao {
 		}
 		
 		
+		/*
+		 * public ArrayList<xebean> getxe2(){ try { cosodao cs=new cosodao();
+		 * cs.KetNoi(); String
+		 * sql="select MaXe, TenXe, SoLuong, Gia, Anh,NgayNhap,XE.MaHangXe, TenHangXe From HANGXE join XE on HANGXE.MaHangXe=Xe.MaHangXe"
+		 * ; PreparedStatement cmd = cs.cn.prepareStatement(sql); ResultSet rs =
+		 * cmd.executeQuery(); while(rs.next()) { String maxe = rs.getString("MaXe");
+		 * String tenxe = rs.getString("TenXe"); long soluong = rs.getLong("SoLuong");
+		 * long gia = rs.getLong("Gia"); String anh = rs.getString("Anh"); String
+		 * ngaynhap = rs.getString("NgayNhap"); String mahangxe =
+		 * rs.getString("MaHangXe"); String tenhangxe = rs.getString("TenHangXe");
+		 * dsxe.add(new xebean(maxe, tenxe, soluong, gia, anh, ngaynhap, mahangxe,
+		 * tenhangxe)); } rs.close(); cs.cn.close(); return dsxe; }catch(Exception e) {
+		 * e.printStackTrace(); return null; } }
+		 * 
+		 * public ArrayList<xebean> getxe3(){ try { cosodao cs=new cosodao();
+		 * cs.KetNoi(); String
+		 * sql="select MaXe, TenXe, SoLuong, Gia, Anh,NgayNhap,XE.MaHangXe, TenHangXe From HANGXE join XE on HANGXE.MaHangXe=Xe.MaHangXe"
+		 * ; PreparedStatement cmd = cs.cn.prepareStatement(sql); ResultSet rs =
+		 * cmd.executeQuery(); while(rs.next()) { String maxe = rs.getString("MaXe");
+		 * String tenxe = rs.getString("TenXe"); long soluong = rs.getLong("SoLuong");
+		 * long gia = rs.getLong("Gia"); String anh = rs.getString("Anh"); String
+		 * ngaynhap = rs.getString("NgayNhap"); String mahangxe =
+		 * rs.getString("MaHangXe"); String tenhangxe = rs.getString("TenHangXe");
+		 * dsxe.add(new xebean(maxe, tenxe, soluong, gia, anh, ngaynhap, mahangxe,
+		 * tenhangxe)); } rs.close(); cs.cn.close(); return dsxe; }catch(Exception e) {
+		 * e.printStackTrace(); return null; } }
+		 * 
+		 * public ArrayList<xebean> getxe4(){ try { cosodao cs=new cosodao();
+		 * cs.KetNoi(); String
+		 * sql="select MaXe, TenXe, SoLuong, Gia, Anh,NgayNhap,XE.MaHangXe, TenHangXe From HANGXE join XE on HANGXE.MaHangXe=Xe.MaHangXe"
+		 * ; PreparedStatement cmd = cs.cn.prepareStatement(sql); ResultSet rs =
+		 * cmd.executeQuery(); while(rs.next()) { String maxe = rs.getString("MaXe");
+		 * String tenxe = rs.getString("TenXe"); long soluong = rs.getLong("SoLuong");
+		 * long gia = rs.getLong("Gia"); String anh = rs.getString("Anh"); String
+		 * ngaynhap = rs.getString("NgayNhap"); String mahangxe =
+		 * rs.getString("MaHangXe"); String tenhangxe = rs.getString("TenHangXe");
+		 * dsxe.add(new xebean(maxe, tenxe, soluong, gia, anh, ngaynhap, mahangxe,
+		 * tenhangxe)); } rs.close(); cs.cn.close(); return dsxe; }catch(Exception e) {
+		 * e.printStackTrace(); return null; } }
+		 */
 		
 		
 		
 		
-		public int addxe(String tenxe, long soluong, long gia, long mahangxe, String anh/* , Date ngaynhap */){
+		
+		public int addxe(String tenxe, long soluong, long gia, long mahangxe, String anh, Date ngaynhap ){
 			try {
 				// B1: káº¿t ná»‘i csdl
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "insert into XE(TenXe,SoLuong,Gia,MaHangXe,Anh) values (?,?,?,?,?)";
+				String sql = "insert into XE(TenXe,SoLuong,Gia,MaHangXe,Anh,NgayNhap) values (?,?,?,?,?,?)";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setString(1, tenxe);
 				cmd.setLong(2, soluong);
 				cmd.setLong(3, gia);
 				cmd.setLong(4, mahangxe);
 				cmd.setString(5, "image_xe/" + anh);
+				cmd.setDate(6, ngaynhap);
 				/* cmd.setDate(6, ngaynhap); */
 				/*
 				 * ResultSet rs = cmd.executeQuery(); // B3: Duyá»‡t qua táº­p dá»¯ liá»‡u láº¥y
@@ -79,20 +122,21 @@ public class xedao {
 		}
 		
 		
-		public int editxe(String addtenxe, long addsoluong, long addgia, long addmahangxe, String addanh, long mx/* , Date ngaynhap */){
+		public int editxe(String addtenxe, long addsoluong, long addgia, long addmahangxe, String addanh, Date ngaynhap, long mx/* , Date ngaynhap */){
 			try {
 				// B1: káº¿t ná»‘i csdl
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "update XE set TenXe = ?, SoLuong = ? , Gia = ?, MaHangXe = ? , Anh = ? where MaXe = ? ";
+				String sql = "update XE set TenXe = ?, SoLuong = ? , Gia = ?, MaHangXe = ? , Anh = ?, NgayNhap = ? where MaXe = ? ";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setString(1, addtenxe);
 				cmd.setLong(2, addsoluong);
 				cmd.setLong(3, addgia);
 				cmd.setLong(4, addmahangxe);
 				cmd.setString(5, "image_xe/" + addanh);
+				cmd.setDate(6, ngaynhap);
 				/* cmd.setDate(6, ngaynhap); */
-				cmd.setLong(6, mx);
+				cmd.setLong(7, mx);
 				/*
 				 * ResultSet rs = cmd.executeQuery(); // B3: Duyá»‡t qua táº­p dá»¯ liá»‡u láº¥y
 				 * vá»�
@@ -167,7 +211,7 @@ public class xedao {
 			try {
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "Select count(*) from XE where MaHangXe = ?";
+				String sql = "Select count(*) from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe where TenHangXe = ?";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setString(1, mh);
 				ResultSet rs = cmd.executeQuery();
@@ -204,12 +248,12 @@ public class xedao {
 		}
 		
 		
-		public ArrayList<xebean> pagingCarsByMaXe(int offset, String mh) {      //(Phân trang theo 1 mã hãng xe)
+		public ArrayList<xebean> pagingCarsByMaXe(String mh, int offset) {      //(Phân trang theo 1 mã hãng xe)
 			ArrayList<xebean> dsXe = new ArrayList<xebean>();
 			try {
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe where Xe.MaHangXe = ? order by MaXe offset ? rows fetch next 8 rows only";
+				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe, AnhHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe where TenHangXe = ? order by MaXe offset ? rows fetch next 8 rows only";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setString(1, mh);
 				cmd.setInt(2, (offset - 1) * 8);
@@ -224,8 +268,9 @@ public class xedao {
 					String ngaynhap = rs.getString("NgayNhap");
 					String mahangxe = rs.getString("mahangxe");
 					String tenhangxe = rs.getString("tenhangxe");
+					String anhhangxe = rs.getString("AnhHangXe");
 					/* Date ngaynhap = rs.getDate("NgayNhap"); */
-					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe));
+					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe, anhhangxe));
 				}
 				rs.close();
 				cs.cn.close();
@@ -241,7 +286,7 @@ public class xedao {
 			try {
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe where TenXe like CONCAT('%', ? , '%') order by MaXe offset ? rows fetch next 8 rows only";
+				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe, AnhHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe where TenXe like CONCAT('%', ? , '%') order by MaXe offset ? rows fetch next 8 rows only";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setString(1, GTTK);
 				cmd.setInt(2, (offset - 1) * 8);
@@ -256,7 +301,8 @@ public class xedao {
 					String ngaynhap = rs.getString("NgayNhap");
 					String mahangxe = rs.getString("mahangxe");
 					String tenhangxe = rs.getString("tenhangxe");
-					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe));
+					String anhhangxe = rs.getString("AnhHangXe");
+					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe, anhhangxe));
 				}
 				rs.close();
 				cs.cn.close();
@@ -272,7 +318,7 @@ public class xedao {
 			try {
 				cosodao cs = new cosodao();
 				cs.KetNoi();
-				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe order by MaXe offset ? rows fetch next 8 rows only";
+				String sql = "select MaXe, TenXe, SoLuong, Gia, XE.MaHangXe, Anh, NgayNhap, TenHangXe, AnhHangXe from XE join HANGXE on XE.MaHangXe = HANGXE.MaHangXe order by MaXe offset ? rows fetch next 8 rows only";
 				PreparedStatement cmd = cs.cn.prepareStatement(sql);
 				cmd.setInt(1, (offset - 1) * 8);
 				ResultSet rs = cmd.executeQuery();
@@ -286,7 +332,8 @@ public class xedao {
 					String ngaynhap = rs.getString("NgayNhap");
 					String mahangxe = rs.getString("mahangxe");
 					String tenhangxe = rs.getString("tenhangxe");
-					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe));
+					String anhhangxe = rs.getString("AnhHangXe");
+					dsXe.add(new xebean(masach, tensach, soluong, gia, anh, ngaynhap, mahangxe, tenhangxe, anhhangxe));
 				}
 				rs.close();
 				cs.cn.close();

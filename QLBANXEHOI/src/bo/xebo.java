@@ -1,8 +1,11 @@
 package bo;
 
+import java.sql.Date;
 import java.util.ArrayList;
-
-
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 import bean.xebean;
 import dao.xedao;
 
@@ -13,6 +16,8 @@ public class xebo {
 		ds = xdao.getxe();
 		return ds;
 	}
+	
+	
 	
 	public ArrayList<xebean> TimHang(String mahang){
 		ArrayList<xebean> tam = new ArrayList<xebean>();
@@ -29,19 +34,42 @@ public class xebo {
 		for (xebean x : ds)
 			if (x.getTenxe().toLowerCase().trim().contains(key.toLowerCase().trim())
 					/* || x.getNgaynhap().toLowerCase().trim().contains(key.toLowerCase().trim()) */
-					|| x.getMahangxe().toLowerCase().trim().contains(key.toLowerCase().trim()))
+					)
 				tam.add(x);
 		return tam;
 	}
 	
 	
-	
-	public void addxe(String tenxe, long soluong, long gia, long mahangxe, String anh) {
-		xdao.addxe(tenxe, soluong, gia, mahangxe, anh);
+	public ArrayList<xebean> Tim2(String tenhangxe){
+		ArrayList<xebean> tam = new ArrayList<xebean>();
+		for(xebean x: ds) {
+			if(x.getTenhangxe().equals(tenhangxe)) {
+				tam.add(x);
+			}
+		}
+		return tam;
 	}
 	
-	public void editxe(String addtenxe, long addsoluong, long addgia, long addmahangxe, String addanh, long mx) {
-		xdao.editxe(addtenxe, addsoluong, addgia, addmahangxe, addanh, mx);
+	/*
+	 * public ArrayList<xebean> Tim3(String mahangxe, String GTTK){
+	 * ArrayList<xebean> tam = new ArrayList<xebean>(); for(xebean x: ds) {
+	 * if(x.getTenhangxe().equals(mahangxe) &&
+	 * x.getTenxe().toLowerCase().trim().contains(GTTK.toLowerCase().trim())) {
+	 * tam.add(x); } } return tam; }
+	 * 
+	 * public ArrayList<xebean> Tim4(String GTTK){ ArrayList<xebean> tam = new
+	 * ArrayList<xebean>(); for(xebean x: ds) {
+	 * if(x.getTenxe().toLowerCase().trim().contains(GTTK.toLowerCase().trim())) {
+	 * tam.add(x); } } return tam; }
+	 */
+	
+	
+	public void addxe(String tenxe, long soluong, long gia, long mahangxe, String anh, Date ngaynhap) {
+		xdao.addxe(tenxe, soluong, gia, mahangxe, anh,ngaynhap);
+	}
+	
+	public void editxe(String addtenxe, long addsoluong, long addgia, long addmahangxe, String addanh, Date ngaynhap, long mx) {
+		xdao.editxe(addtenxe, addsoluong, addgia, addmahangxe, addanh, ngaynhap, mx);
 	}
 	
 	
@@ -61,8 +89,8 @@ public class xebo {
 		return xdao.countCarsBySearchValue(GTTK);
 	}
 	
-	public ArrayList<xebean> pagingCarsByMaXe(int offset, String mh){
-		return xdao.pagingCarsByMaXe(offset, mh);
+	public ArrayList<xebean> pagingCarsByMaXe(String mh, int offset){
+		return xdao.pagingCarsByMaXe(mh, offset);
 	}
 	
 	public ArrayList<xebean> pagingCarsBySearchValue(int offset, String GTTK){

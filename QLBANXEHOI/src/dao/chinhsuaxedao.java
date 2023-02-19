@@ -18,17 +18,10 @@ public class chinhsuaxedao {
 			cmd.setString(5, "image_xe/" + addanh);
 			/* cmd.setDate(6, ngaynhap); */
 			cmd.setLong(6, mx);
-			ResultSet rs = cmd.executeQuery();
-			// B3: Duyá»‡t qua táº­p dá»¯ liá»‡u láº¥y vá»�
+			int rs= cmd.executeUpdate();
 			
-			while (rs.next()) { 
-				return rs.getInt(1); //System.out.println(rs.getInt(1));
-			}
-			
-
-			// B4: Ä�Ã³ng rs vÃ  cn
-			rs.close();
 			cs.cn.close();
+			return rs;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

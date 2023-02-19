@@ -1,6 +1,4 @@
-
-<%-- <%@page import="bean.matkbean"%> --%>
-
+<%@page import="bean.khachhangbean"%>
 <%@page import="bean.thanhtoanbean"%>
 <%@ page import="java.io.*,java.util.*, javax.servlet.*" %>
 <%@page import="bean.xebean"%>
@@ -13,231 +11,173 @@
 <%@page import="dao.xedao"%>
 <%@page import="dao.hangdao"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
-    pageEncoding="utf-8"%>
+	pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>Thanh toán</title>
+<meta charset="utf-8">
+	<link type="image/png" sizes="16x16" rel="icon" href="logo.png">
 	<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" />
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 	<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<title>Thanh toán hóa đơn</title>
 </head>
 <style>
-	@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("//maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 
-.navbar-icon-top .navbar-nav .nav-link > .fa {
-  position: relative;
-  width: 36px;
-  font-size: 21px;
+* {
+	box-sizing: border-box
 }
 
-.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-  font-size: 0.75rem;
-  position: absolute;
-  right: 0;
-  font-family: sans-serif;
+body {
+	margin: 0px;
+	font-family: Times New Roman;
 }
 
-.navbar-icon-top .navbar-nav .nav-link > .fa {
-  top: 3px;
-  line-height: 12px;
-}
-
-.navbar-icon-top .navbar-nav .nav-link > .fa > .badge {
-  top: -10px;
-}
-
-@media (min-width: 576px) {
-  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link {
-    text-align: center;
-    display: table-cell;
-    height: 70px;
-    vertical-align: middle;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa {
-    display: block;
-    width: 48px;
-    margin: 2px auto 4px auto;
-    top: 0;
-    line-height: 24px;
-  }
-
-  .navbar-icon-top.navbar-expand-sm .navbar-nav .nav-link > .fa > .badge {
-    top: -7px;
-  }
-}
-
-@media (min-width: 768px) {
-  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link {
-    text-align: center;
-    display: table-cell;
-    height: 70px;
-    vertical-align: middle;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa {
-    display: block;
-    width: 48px;
-    margin: 2px auto 4px auto;
-    top: 0;
-    line-height: 24px;
-  }
-
-  .navbar-icon-top.navbar-expand-md .navbar-nav .nav-link > .fa > .badge {
-    top: -7px;
-  }
-}
-
-@media (min-width: 992px) {
-  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link {
-    text-align: center;
-    display: table-cell;
-    height: 70px;
-    vertical-align: middle;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa {
-    display: block;
-    width: 48px;
-    margin: 2px auto 4px auto;
-    top: 0;
-    line-height: 24px;
-  }
-
-  .navbar-icon-top.navbar-expand-lg .navbar-nav .nav-link > .fa > .badge {
-    top: -7px;
-  }
-}
-
-@media (min-width: 1200px) {
-  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link {
-    text-align: center;
-    display: table-cell;
-    height: 70px;
-    vertical-align: middle;
-    padding-top: 0;
-    padding-bottom: 0;
-  }
-
-  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa {
-    display: block;
-    width: 80px;
-    margin: 2px auto 4px auto;
-    top: 0;
-    line-height: 24px;
-  }
-
-  .navbar-icon-top.navbar-expand-xl .navbar-nav .nav-link > .fa > .badge {
-    top: -7px;
-  }
-}
-
-
-table, th, td {  
-    border: 1px solid black;
-    border-collapse: collapse;
-}
-
-.butt{
-	height:200px;
-	text-decoration: none;
-	border: 1px solid black;
-	background-color: #333;
-	color: white;
-}
-
-.butt:hover{
-	text-decoration: none;
-	background-color: #d41d21;
-	color: white;
-}
-
-.listhead{
-	height:30px;
-	color:red;
-	background-color:#EDEDED;
-	text-align:center ;
-	width: 200px;
-	font-weight: bold;
-}
-
-
-.list-items {
-	display: block;
+.header {
+	position: fixed;
+	top: 0px;
 	width: 100%;
-	height: 40px;
-	padding: 0px 20px 0px 10px;
-	border: 1px solid #ccc;
-	color: #000;
-}
-
-.list-items:hover {
-	text-decoration: none;
-	background-color: #55595c;
-	color: #fff;
-	font-weight: 600;
-}
-
-.list {
+	height: 72px;
+	background-color: #ffffff;
+	justify-content: space-between;
 	display: flex;
-	flex-wrap: wrap;
-	flex: 0 0 60%;
-	max-width: 100%;
-	/*Lock lại */
-	position: relative;
-	top: 0;
-	height: calc(100vh - 48px);
-	padding-top: 0.5rem;
-	overflow-x: hidden;
-	overflow-y: auto;
+	z-index: 1000;
+	box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
 }
 
-.ctn {
-	text-align: center;
-	padding: 20px;
-	margin: 5px auto;
+.back {
+	width: 100%;
+	padding-top: 850px;
+	padding: 0px;
+	height: 744.8px;
 }
 
-.ctn:hover {
-	background-color: #d3d3d3;
-}
-.ctn .img{
-    overflow: hidden;
-	border-radius: 5px ;
-}
-.sach-img {
-	width: 240px;
-	height: 140px;
-	border-radius: 10px;
-}
-.ctn:hover{
-    transform: scale(1.1);
+.logo {
+	width: 150px;
+	height: 65px;
+	padding: 10px 0px 10px 0px;
 }
 
-#butt1{
-	color: black;
+.nut {
+	text-decoration: none;
+	color: #313443;
+	font-size: 18px;
+	font-weight: 500;
+	margin-right: 20px;
+	padding: 10px 10px 10px 10px;
+}
+
+.nut:hover {
+	background-color: #ededed;
+	border-radius: 5px;
+	text-decoration: none;
 	
-	padding-top:3px;
-	height: 20px;
-	width: 20px;
 }
 
-
-#butt1:hover{
-	padding-top:3px;
-	height: 20px;
-	width: 20px;
-	background-color: #6c757d;
+.nut2 {
+	text-decoration: none;
+	color: #313443;
+	font-size: 16px;
+	font-weight: 500;
+	margin-right: 30px;
 }
+
+.nut2:hover {
+	text-decoration:none;
+	color: #5b93f7;
+}
+
+.nut3 {
+	text-decoration: none;
+	font-size: 16px;
+	font-weight: 500;
+	padding: 10px;
+	border-radius: 5px;
+	background-color: #1464f4;
+	color: #ffffff;
+}
+
+.nut3:hover {
+	color: #363636;
+	background-color: #ededed;
+	text-decoration: none;
+	
+}
+
+.left {
+	position: fixed;
+	left: 7%;
+}
+
+.left2 {
+	position: fixed;
+	top: 26px;
+	left: 300px;
+}
+
+.right {
+	position: fixed;
+	right: 7%;
+	top: 12px;
+}
+
+ .footer{
+ 	width: 100%;
+ 	height: 200px;
+ 	background-color: #e9ecf0;
+ 	display: flex;
+ 	border-top: 1px solid red;
+ }
+ 
+ .leftfoot{
+ 	left: 90px;
+    position: relative;
+    margin-top: 55px;
+ }
+ 
+ .bodyfoot{
+ 	position: relative;
+    margin-top: 40px;
+    left: 400px;
+    font-size: 20px;
+    font-weight: 500;
+    color: #1F2125;
+ }
+ 
+ .rightfoot{
+ 	position: relative;
+ 	font-size: 20px;
+    font-weight: 500;
+    color: #1F2125;
+    margin-top: 50px;
+    left: 780px;
+ }
+ 
+ .fblink:hover{
+ 	text-decoration: none;
+ }
+ 
+ #top-up {
+font-size: 3rem;
+cursor: pointer;
+position: fixed;
+z-index: 9999;
+color:#004993;
+bottom: 20px;
+right: 15px;
+display: none;
+}
+#top-up:hover {
+color: #333
+}
+
 
 
 .container{
@@ -255,7 +195,7 @@ table, th, td {
 	width: 400px;
 	background-color: #f5f7fb;
 	border-radius: 6px;
-	position: absolute;
+	position: fixed;
 	top: 320px;
 	left: 650px;
 	text-align: center;
@@ -269,370 +209,213 @@ table, th, td {
 	visibility: visible;
 	transform: translate(-50%,-50%) scale(1);
 	margin-left: 115px;
-}
+} 
 
-
-.input-box{
-	border-radius: 10px;
-	padding-left: 10px;
-    width: 300px;
-    height: 45px;
-    
-}
-
-.input-box2{
-	border-radius: 10px;
-	padding-left: 10px;
-    width: 300px;
-    height: 45px;
-    margin-bottom: 10px;
-}
-
-#but0{
-	border-radius: 10px;
-}
-
-#but0:hover{
-	background-color: white;
-	color:#343a40;
-}
-
-.but2:hover{
-	background-color: #f5f7fb;
-	
-}
-
-.container2{
-	width: 100px;
-	height: 0;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-}
-
-.popup2{
-	box-shadow: 10px 10px 10px #AAA;
-	height: 600px;
-	width: 400px;
-	background-color: #f5f7fb;
-	border-radius: 6px;
-	position: absolute;
-	top: 375px;
-	left: 620px;
+.body{
+	min-height:545px;
+	margin-top: 75px;
 	text-align: center;
-	visibility: hidden;
-	border: 2px solid black;
-	transform: translate(-50%,-50%) scale(0.1);
-	transition: transform 0.4s, top 0.4s;
+	
+    background-color: #f5f5f5;
+    width: 100%;
 }
 
-.open-popup2{
-	visibility: visible;
-	transform: translate(-50%,-50%) scale(1);
-	margin-left: 115px;
+tr{
+	border-radius: 2px;
 }
 
-.input-box9{
-	width: 0px;
-	height: 0px;
-	visibility: hidden;
+th{
+	
+	background-color: #ffffff;
 }
 
-.tb{
-	border: 0px solid black;
+.bang{
+	/* margin-top: 40px; */
+    width: 1274px;
+    margin-left: 7%;
+    margin-right: 7%;
 }
 
-.anhhangxe{
-	border-radius:10px;
-	width: 16px;
-	height: 16px;
-	margin-top: -3px;
+a:hover{
+	text-decoration: none;
 }
 
 </style>
 <body>
-    <%
-	if (session.getAttribute("DangNhap") == null) {
-	%>
-	<nav style="height:44px" class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-		<a href="htxecontroller">
-			<img style="border-radius: 10px;width:120px ;height: 38px;" alt="" src="gara.png">
-		</a>
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="htxecontroller">
-		          <i style="margin-bottom: -6px;" class="fa fa-home"></i>
-		          Trang chủ
-		          <span class="sr-only">(current)</span>
-		          </a>
-		      </li>
-		      <li class="nav-item active">
-		        <a onclick="openPopup()" class="nav-link" href="#">
-		          <i style="margin-bottom: -4px;" class="fa fa-shopping-cart"></i>
-		          Giỏ hàng
-		          <span class="badge badge-danger"></span>
-		          
-		        
-		        </a>
-		      </li>
-		      <li class="nav-item">
-		        <a onclick="openPopup()" class="nav-link" href="#">
-		          <i style="margin-bottom: -5px;" class="fa fa-credit-card-alt"></i>
-		          Thanh toán
-		            <span class="badge badge-warning"></span>
-		    
-		        </a>
-		      </li>
-		      <li class="nav-item">
-		        <a onclick="openPopup()" class="nav-link" href="#">
-		          <i style="margin-bottom: -6px;" class="fa fa-history"></i>
-		          Lịch sử mua
-		            <span class="badge badge-primary"></span>
-		         
-		        </a>
-		      </li>
-		      <li style="margin-top:16px">
-		      	<form class="form-inline my-2 my-lg-0" action="htxecontroller" method="get">
-			      <input style="margin-left:20px; width:300px " name="gttk" class="form-control mr-sm-2" type="text" placeholder="Nhập xe bạn muốn tìm" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Tìm kiếm">Tìm kiếm</button>
-			    </form>
-		      </li>
-		    </ul>
-		    <ul class="navbar-nav ">
-		      <li class="nav-item">
-		        <a onclick="openPopup2()" class="nav-link" href="#">
-		          <i style="margin-bottom: -4px;" class="fa fa-user-plus"></i>
-		          Đăng ký
-		        </a>
-		      </li>
-		      <li class="nav-item">
-		        <a onclick="openPopup()" class="nav-link" href="#">
-		          <i style="margin-bottom: -4px;" class="fa fa-sign-in"></i>
-		          Đăng nhập
-		        </a>
-		      </li>
-		    </ul>	    
-		  </div>
-	</nav>
-	<%
-	} else {
-	%>
-	<nav style="height:44px" class="navbar navbar-icon-top navbar-expand-lg navbar-dark bg-dark">
-		<a href="htxecontroller">
-			<img style="border-radius: 10px;width:120px ;height: 38px;" alt="" src="gara.png">
-		</a>
-		  <div class="collapse navbar-collapse" id="navbarSupportedContent">
-		    <ul class="navbar-nav mr-auto">
-		      <li class="nav-item">
-		        <a class="nav-link" href="htxecontroller">
-		          <i style="margin-bottom: -6px;" class="fa fa-home"></i>
-		          Trang chủ
-		          <span class="sr-only">(current)</span>
-		          </a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="htgiocontroller">
-		          <i style="margin-bottom: -4px;" class="fa fa-shopping-cart"></i>
-		          Giỏ hàng
-		          <span class="badge badge-danger"></span>
-		          
-		        
-		        </a>
-		      </li>
-		      <li class="nav-item active">
-		        <a class="nav-link" href="listthanhtoancontroller?DangNhap=<%=session.getAttribute("DangNhap")%>">
-		          <i style="margin-bottom: -5px;" class="fa fa-credit-card-alt"></i>
-		          Thanh toán
-		            <span class="badge badge-warning"></span>
-		    
-		        </a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="lichsucontroller">
-		          <i style="margin-bottom: -6px;" class="fa fa-history"></i>
-		          Lịch sử mua
-		            <span class="badge badge-primary"></span>
-		         
-		        </a>
-		      </li>
-		      <li style="margin-top:16px">
-		      	<form class="form-inline my-2 my-lg-0" action="htxecontroller" method="get">
-			      <input style="margin-left:20px; width:300px " name="gttk" class="form-control mr-sm-2" type="text" placeholder="Nhập xe bạn muốn tìm" aria-label="Search">
-			      <button class="btn btn-outline-success my-2 my-sm-0" type="submit" value="Tìm kiếm">Tìm kiếm</button>
-			    </form>
-		      </li>
-		    </ul>
-		    <ul class="navbar-nav ">
-		      <li class="nav-item">
-		        <a class="nav-link" href="logout">
-		          <i style="margin-bottom: -4px;" class="fa fa-sign-out"></i>
-		          Logout
-		        </a>
-		      </li>
-		      <li class="nav-item">
-		        <a class="nav-link" href="#">
-		          <i style="margin-bottom: -4px;" class="fa fa-user-circle-o"></i>
-		          <%=session.getAttribute("DangNhap")%>
-		        </a>
-		      </li>
-		    </ul>
-		    
-		    
-		  </div>
-	</nav>
-	<%
-	}
-	%> 
-	<div style=";height: 670px;">
-		
-		<div style="background-color: #bee6f7;width: -webkit-fill-available;" class="thanhtoan">
-			<div  style="text-align: center;">
-				<p style="font-weight: 1000;">Số tiền còn dư </p>
-				<p style="margin-top: -25px;font-size:40px ;font-weight: 1000;color: red;margin-bottom: 0px;">1.000.000.000.000$</p>
+	<div class="header">
+		<%
+		if (session.getAttribute("DangNhap") == null) {
+		%>
+		<div class="left">
+			<a href="trangchu"><img
+				style="margin-top: 6px; margin-right: 30px;" class="logo"
+				src="gara2.png"></a>
+		</div>
+		<div class="left2">
+			<a class="nut" href="trangchu"><span>Trang chủ</span></a> 
+			<a onclick="openPopup()" class="nut" href="#"><span>Mua sắm</span></a>
+			<a onclick="openPopup()" class="nut" href="#"><span>Giỏ hàng</span></a>
+			<a onclick="openPopup()" class="nut" href="#"><span style="color: #5b93f7">Thanh toán</span></a>
+			<a onclick="openPopup()" class="nut" href="#"><span>Lịch sử</span></a>
+		</div>
+		<div class="right">
+			<a class="nut"><i class="fa fa-search" aria-hidden="true"></i></a>
+			<a class="nut2" href="login">Đăng nhập</a> 
+			<a class="nut3" href="register">Đăng ký</a>
+		</div>
+		<%
+		}else{
+		%>
+		<div class="left">
+			<a href="trangchu"><img
+				style="margin-top: 6px; margin-right: 30px;" class="logo"
+				src="gara2.png"></a>
+		</div>
+		<div class="left2">
+			<a class="nut" href="trangchu"><span>Trang chủ</span></a> 
+			<a class="nut" href="user"><span>Mua sắm</span></a>
+			<a class="nut" href="htgio"><span>Giỏ hàng</span></a>
+			<a class="nut" href="listthanhtoan?DangNhap=<%=session.getAttribute("DangNhap")%>"><span style="color: #5b93f7">Thanh toán</span></a>
+			<a class="nut" href="lichsu?DangNhap=<%=session.getAttribute("DangNhap")%>"><span>Lịch sử</span></a>
+		</div>
+		<div class="right">
+			<div class="dropdown">
+				<button type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" style="border: 0px;" class="nut3"><%=session.getAttribute("DangNhap") %> <i class="fa fa-user-circle-o" aria-hidden="true"></i></button>
+				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			    	<a class="dropdown-item" href="#">Thông tin</a>
+			    	<a class="dropdown-item" href="logout2">Đăng xuất</a>
+				</div>
 			</div>
 		</div>
-		<%-- <div style="background-color: #bee6f7;width: -webkit-fill-available;" class="thanhtoan">
-			<div  style="text-align: center;">
-				<p style="font-weight: 1000;">Giờ hiện tại  </p>
-				<input class="input-box" type="text" value="<%=java.time.LocalDateTime.now()%>">
+	    <%
+	    }
+		%>
+	</div>
+	
+	
+	<div class="body">
+		<div style="height: 15px;"></div>
+		<p style="font-weight: bold;font-size: 30px;margin-bottom: -5px;">Số dư khả dụng</p>
+		<%
+				ArrayList<khachhangbean> dskhachhang = (ArrayList<khachhangbean>) request.getAttribute("dskhachhang");
+				for(khachhangbean kh: dskhachhang){
+				%>
+				<p style="font-size:40px ;font-weight: 1000;color: red;"><%=kh.taikhoan %> $</p>
+				<%
+				}
+				%>
+			
+		
+		<div style="height: 30px;"></div>
+		<div>
+			
+			<table class="bang">
+				<tr style="">
+					<th style="width: 165px;">Mã hóa đơn</th>
+					<th>Thời gian mua</th>
+					<th>Số tiền</th>
+					<th>Trạng thái</th>
+					<th>Thao tác</th>
+					<th></th>
+				</tr>
+				
+				<%
+				int i=1;
+				
+				ArrayList<thanhtoanbean> dsthanhtoan = (ArrayList<thanhtoanbean>) request.getAttribute("dsthanhtoan");
+				for(thanhtoanbean tt: dsthanhtoan){
+				%>	
+				<tr style="background-color: #f5f5f5;height: 20px;"></tr>
+				<tr style="height: 150px;background-color: #ffffff;">
+					<td style="font-weight: bold ;color:  #ff0000"><%=tt.mahoadon %></td>
+					<td><%=tt.ngaymua %></td>
+					<td style="color:  #ff0000"><%=tt.sotien %></td>
+					<td>Đợi thanh toán</td>
+					
+					<td>
+						<div>
+							<a href="dongythanhtoan?mhd=<%=tt.mahoadon%>&DangNhap=<%=session.getAttribute("DangNhap")%>&sotien=<%=tt.sotien%>" style="padding-right: 10px"> Thanh toán</a> | 
+							<a href="xoahoadon?mhd=<%=tt.mahoadon%>&DangNhap=<%=session.getAttribute("DangNhap")%>" style="padding-left: 5px"> Trả lại</a>
+						</div>
+					</td>
+					<td>
+						<a href="htchitiet?mahoadon=<%=tt.mahoadon%>">Xem chi tiết</a>
+					</td>
+				</tr>
+				<%
+				}
+				%>
+			</table>
+		</div>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div style="height: 50px;background-color: #F5F5F5;"></div>
+	<div class="footer">
+		<div>
+			<div class="leftfoot">
+				<img style="width: 80px;height: 80px;" src="logo2.png">
+				<p style="font-weight: bold;color: #ee2c37;margin-left: -17px;">LỘC STORAGE</p>
 			</div>
-		</div> --%>
-		<%-- <p><%=session.getAttribute("tendn") %></p> --%>
-		<table style="background-color: #ededed;width: 100%;text-align: center;margin: auto;">
-			<tr>
-				<th>STT</th>
-				<th>Mã hóa đơn</th>
-				<th>Thời gian mua</th>
-				<th>Số tiền</th>
-				<th>Trạng thái</th>
-				<th>Thao tác</th>
-			</tr>
-			<%
-			int i=1;
-			ArrayList<thanhtoanbean> dsthanhtoan = (ArrayList<thanhtoanbean>) request.getAttribute("dsthanhtoan");
-			for(thanhtoanbean tt: dsthanhtoan){
-			%>
-			<tr>
-				<td><%=i %></td>
-				<td><%=tt.mahoadon %></td>
-				<td><%=tt.ngaymua %></td>
-				<td><%=tt.sotien %></td>
-				<td>Đợi thanh toán</td>
-				<td style="display: flex;justify-content: center;">
-					<a style="margin-top: 8px;" href="dongythanhtoancontroller?mhd=<%=tt.mahoadon%>&DangNhap=<%=session.getAttribute("DangNhap")%>">Thanh toán</a>
-					<p style="margin-top: 8px;margin-right: 20px;margin-left: 20px;"> | </p>
-					<a style="margin-top: 8px;" href="xoahoadoncontroller?mhd=<%=tt.mahoadon%>&DangNhap=<%=session.getAttribute("DangNhap")%>">Trả lại</a>
-				</td>
-			</tr>
-			<%
-			i=i+1;
-			}
-			%>
-		</table>
-		
-	</div>
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-	
-	<div class="container4">
-		
-	
-	
-	
-	
+		</div>
+		<div class="bodyfoot">
+			<p>Đề tài quản lý buôn bán xe hơi</p>
+			<p>Người thực hiện: Trần Văn Lộc</p>
+			<p>Thời gian bắt đầu: 16/12/2022</p>
+		</div>
+		<div class="rightfoot">
+			<p>Thông tin liên hệ</p>
+			<p><i class="fa fa-phone" aria-hidden="true"></i> 0977481545</p>
+			<a class="fblink" href=""><i class="fa fa-facebook-square" aria-hidden="true"></i> facebook</a>
+		</div>
 	</div>
 	
-		
+	<div title="Về đầu trang" id="top-up"><i class="fas fa-arrow-circle-up"></i></div>
+	
 	<div class="container">
 		<div class="popup" id="popup">
-	                <form action="ktdn" method="post">
-	                	<button class="but2" style="border: 0px;margin-left: 350px;" onclick="closePopup()" type="button"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
-	                    <h1>Đăng nhập</h1>
-	                    <div>
-	                        <input style="margin-top: 50px; margin-bottom: 30px;" class="input-box" type="text" name="txtun" value="" required="required" placeholder="Tên đăng nhập">
+	                	<button class="but2" style="" onclick="closePopup()" type="button"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
+	                    <h1>Bạn phải đăng nhập trước</h1>
+	                    <img style="width: 180px;" src="canhbao.png">
+	                    <div style="margin-top: 30px;">
+	                    	<a class="but3" style="margin-right: 40px;" onclick="closePopup()" href="#">Hủy</a>
+	                  	    <a class="but3" href="login">Đăng nhập</a>
 	                    </div>
-	                    <div>   
-	                        <input class="input-box" type="password" name="txtpass" value="" required="required" placeholder="Nhập mật khẩu">
-	                    </div>
-	                    <div style="display: inline;">
-	                        <button style="height: 35px;margin-top: 60px;color:white ;background-color:  #343a40;" id="but0" type="submit" value="Login">Đăng nhập</button>
-	                    </div>
-	                </form>
+	                    
 	            </div>
 	</div>
-	<div class="container2">
-		<div class="popup2" id="popup2">
-	                <form action="ktdk" method="post">
-	                	<button class="but2" style="border: 0px;margin-left: 350px;" onclick="closePopup2()" type="button"><i class="fa fa-times-circle" aria-hidden="true"></i></button>
-	                    <h1>Đăng ký tài khoản</h1>
-	                    <div>   
-	                        <input class="input-box2" type="text" required="required"  name="name" value="" placeholder="Họ và tên">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="text" name="undk" value="" required="required" placeholder="Nhập tên đăng nhập">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="password" name="passdk" value="" required="required" placeholder="Nhập mật khẩu">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="password" name="pass2dk" value="" required="required" placeholder="Nhập lại mật khẩu">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="text" name="address" required="required"  value="" placeholder="Nhập địa chỉ">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="text" name="phone" required="required"  value="" placeholder="Nhập số điện thoại">
-	                    </div>
-	                    <div>   
-	                        <input class="input-box2" type="text" name="email" required="required"  value="" placeholder="Nhập email">
-	                    </div>
-	                    <input required="required" type="checkbox" id="vehicle1" name="vehicle1" value="Bike">
-  						<label style="margin-top: 20px;" for="vehicle1"> Tôi đồng ý với Điều khoản người dùng</label><br>
-	                    <div style="display: inline;">
-	                        <button style="height: 35px;margin-top: 20px;color:white ;background-color:  #343a40;" id="but0" type="submit" value="Login">Đăng ký</button>
-	                    </div>
-	                </form>
-	            </div>
-	</div>
-	<script type="text/javascript">
-		let popup = document.getElementById("popup");
-		
-		function openPopup(){
-			popup.classList.add("open-popup");
-		}
-		
-		function closePopup(){
-			popup.classList.remove("open-popup");
-		}
-		
-		let popup2 = document.getElementById("popup2");
-		
-		function openPopup2(){
-			popup2.classList.add("open-popup2");
-		}
-		
-		function closePopup2(){
-			popup2.classList.remove("open-popup2");
-		}
-	</script>
-	
 </body>
+<script>
+
+//kéo xuống khoảng cách 500px thì xuất hiện nút Top-up
+var offset = 500;
+// thời gian di trượt 0.75s ( 1000 = 1s )
+var duration = 750;
+$(function(){
+$(window).scroll(function () {
+if ($(this).scrollTop() > offset)
+$('#top-up').fadeIn(duration);else
+$('#top-up').fadeOut(duration);
+});
+$('#top-up').click(function () {
+$('body,html').animate({scrollTop: 0}, duration);
+});
+});
+
+
+let popup = document.getElementById("popup");
+
+function openPopup(){
+	popup.classList.add("open-popup");
+}
+
+function closePopup(){
+	popup.classList.remove("open-popup");
+}
+</script>
 </html>

@@ -26,4 +26,8 @@ public class thanhtoanbo {
 	public void dongythanhtoan(long mahoadon) {
 		ttdao.dongythanhtoan(mahoadon);
 	}
+	
+	public void dongythanhtoan2(long sotien, String tendn) {
+		ttdao.dongythanhtoan2(sotien,tendn);
+	}
 }

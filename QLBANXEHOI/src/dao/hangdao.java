@@ -118,4 +118,23 @@ public class hangdao {
 		}
 		return 0;
 	}
+	
+	public int counthx() { //Đếm tất cả hãng xe hiện tại : 15 hãng xe)
+		try {
+			cosodao cs = new cosodao();
+			cs.KetNoi();
+			String sql = "Select count(*) from HANGXE";
+			PreparedStatement cmd = cs.cn.prepareStatement(sql);
+			ResultSet rs = cmd.executeQuery();
+			while (rs.next()) {
+				return rs.getInt(1);
+			}
+			rs.close();
+			cs.cn.close();
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return 0;
+	}
 }
